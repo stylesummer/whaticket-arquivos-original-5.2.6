@@ -1,123 +1,123 @@
-import React, { useState, useEffect } from "react";
+importar React, { useState, useEffect } de "react";
 
-import "react-toastify/dist/ReactToastify.css";
-import { QueryClient, QueryClientProvider } from "react-query";
-import lightBackground from '../src/assets/wa-background-light.png';
-import darkBackground from '../src/assets/wa-background-dark.jpg';
-import { ptBR } from "@material-ui/core/locale";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { useMediaQuery } from "@material-ui/core";
-import ColorModeContext from "./layout/themeContext";
-import { SocketContext, SocketManager } from './context/Socket/SocketContext';
+importar "react-toastify/dist/ReactToastify.css";
+importar { QueryClient, QueryClientProvider } de "react-query";
+importar lightBackground de '../src/assets/wa-background-light.png';
+importar darkBackground de '../src/assets/wa-background-dark.jpg';
+importar { ptBR } de "@material-ui/core/locale";
+importar {createTheme, ThemeProvider} de "@material-ui/core/styles";
+importar { useMediaQuery } de "@material-ui/core";
+importar ColorModeContext de "./layout/themeContext";
+importar { SocketContext, SocketManager } de './context/Socket/SocketContext';
 
-import Routes from "./routes";
+importar rotas de "./routes";
 
-const queryClient = new QueryClient();
+const queryClient = novo QueryClient();
 
-const App = () => {
+const Aplicativo = () => {
     const [locale, setLocale] = useState();
 
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    const prefersDarkMode = useMediaQuery("(prefere-color-scheme: escuro)");
     const preferredTheme = window.localStorage.getItem("preferredTheme");
-    const [mode, setMode] = useState(preferredTheme ? preferredTheme : prefersDarkMode ? "dark" : "light");
+    const [modo, setMode] = useState(temapreferido ? temapreferido : prefereModoEscuro ? "escuro" : "claro");
 
     const colorMode = React.useMemo(
         () => ({
-            toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+            alternarColorMode: () => {
+                setMode((prevMode) => (prevMode === "claro" ? "escuro" : "claro"));
             },
         }),
         []
     );
 
-    const theme = createTheme(
+    const tema = criarTema(
         {
-            scrollbarStyles: {
+            Estilos de barra de rolagem: {
                 "&::-webkit-scrollbar": {
-                    width: '8px',
-                    height: '8px',
+                    largura: '8px',
+                    altura: '8px',
 					borderRadius: "8px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: "#2DDD7F",
+                    boxShadow: 'inserir 0 0 6px rgba(0, 0, 0, 0.3)',
+                    Cor de fundo: "#4287f5",
 					borderRadius: "8px",
                 },
             },
             scrollbarStylesSoft: {
                 "&::-webkit-scrollbar": {
-                    width: "8px",
+                    largura: "8px",
 					borderRadius: "8px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
+                    backgroundColor: modo === "luz" ? "#F3F3F3" : "#333333",
 					borderRadius: "8px",
                 },
             },
-            palette: {
-                type: mode,
-                primary: { main: mode === "light" ? "#2DDD7F" : "#FFFFFF" },
-				sair: { main: mode === "light" ? "#2DDD7F" : "#333" },
-				vcard: { main: mode === "light" ? "#2DDD7F" : "#666" },
-                textPrimary: mode === "light" ? "#2DDD7F" : "#FFFFFF",
-                borderPrimary: mode === "light" ? "#2DDD7F" : "#FFFFFF",
-                dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
-                light: { main: mode === "light" ? "#F3F3F3" : "#333333" },
-                tabHeaderBackground: mode === "light" ? "#EEE" : "#666",
-                optionsBackground: mode === "light" ? "#fafafa" : "#333",
-				options: mode === "light" ? "#fafafa" : "#666",
-				fontecor: mode === "light" ? "#128c7e" : "#fff",
-                fancyBackground: mode === "light" ? "#fafafa" : "#333",
-				bordabox: mode === "light" ? "#eee" : "#333",
-				newmessagebox: mode === "light" ? "#eee" : "#333",
-				inputdigita: mode === "light" ? "#fff" : "#666",
-				contactdrawer: mode === "light" ? "#fff" : "#666",
-				announcements: mode === "light" ? "#ededed" : "#333",
-				login: mode === "light" ? "#fff" : "#1C1C1C",
-				announcementspopover: mode === "light" ? "#fff" : "#666",
-				chatlist: mode === "light" ? "#eee" : "#666",
-				boxlist: mode === "light" ? "#ededed" : "#666",
-				boxchatlist: mode === "light" ? "#ededed" : "#333",
-                total: mode === "light" ? "#fff" : "#222",
-                messageIcons: mode === "light" ? "grey" : "#F3F3F3",
-                inputBackground: mode === "light" ? "#FFFFFF" : "#333",
-                barraSuperior: mode === "light" ? "linear-gradient(to right, #2DDD7F, #2DDD7F , #2DDD7F)" : "#666",
-				boxticket: mode === "light" ? "#EEE" : "#666",
-				campaigntab: mode === "light" ? "#ededed" : "#666",
-				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
+            paleta: {
+                tipo: modo,
+                primário: { principal: modo === "luz" ? "#4287f5" : "#FFFFFF" },
+				sair: { main: mode === "light" ? "#4287f5" : "#333" },
+				vcard: { principal: modo === "luz" ? "#4287f5" : "#666" },
+                textoPrimário: modo === "luz" ? "#4287f5" : "#FFFFFF",
+                borderPrimary: modo === "luz" ? "#4287f5" : "#FFFFFF",
+                escuro: { principal: modo === "claro" ? "#333333" : "#F3F3F3" },
+                luz: { principal: modo === "luz" ? "#F3F3F3" : "#333333" },
+                tabHeaderBackground: modo === "light" ? "#EEE" : "#666",
+                optionsBackground: modo === "light" ? "#fafafa" : "#333",
+				opções: modo === "light" ? "#fafafa" : "#666",
+				fontecor: modo === "light" ? "#128c7e" : "#fff",
+                fancyBackground: modo === "light" ? "#fafafa" : "#333",
+				bordabox: modo === "light" ? "#eee" : "#333",
+				newmessagebox: modo === "light" ? "#eee" : "#333",
+				inputdigita: modo === "luz" ? "#fff" : "#666",
+				contactdrawer: modo === "luz" ? "#fff" : "#666",
+				anúncios: modo === "light" ? "#ededed" : "#333",
+				login: modo === "light" ? "#fff" : "#1C1C1C",
+				anúnciospopover: modo === "light" ? "#fff" : "#666",
+				lista de bate-papo: modo === "light" ? "#eee" : "#666",
+				boxlist: modo === "light" ? "#ededed" : "#666",
+				boxchatlist: modo === "light" ? "#ededed" : "#333",
+                total: modo === "luz" ? "#fff" : "#222",
+                messageIcons: modo === "claro" ? "cinza" : "#F3F3F3",
+                inputBackground: modo === "luz" ? "#FFFFFF" : "#333",
+                barraSuperior: modo === "luz" ? "gradiente-linear(para a direita, #4287f5, #4287f5 , #4287f5)" : "#666",
+				boxticket: modo === "luz" ? "#EEE" : "#666",
+				campaigntab: modo === "light" ? "#ededed" : "#666",
+				mediainput: modo === "light" ? "#ededed" : "#1c1c1c",
             },
-            mode,
+            modo,
         },
-        locale
+        localidade
     );
 
-    useEffect(() => {
+    useEfeito(() => {
         const i18nlocale = localStorage.getItem("i18nextLng");
-        const browserLocale =
+        const navegadorLocale =
             i18nlocale.substring(0, 2) + i18nlocale.substring(3, 5);
 
-        if (browserLocale === "ptBR") {
-            setLocale(ptBR);
+        se (browserLocale === "ptBR") {
+            definirLocalidade(ptBR);
         }
     }, []);
 
-    useEffect(() => {
-        window.localStorage.setItem("preferredTheme", mode);
-    }, [mode]);
+    useEfeito(() => {
+        window.localStorage.setItem("tema preferido", modo);
+    }, [modo]);
 
 
 
-    return (
-        <ColorModeContext.Provider value={{ colorMode }}>
-            <ThemeProvider theme={theme}>
-                <QueryClientProvider client={queryClient}>
-                  <SocketContext.Provider value={SocketManager}>
-                      <Routes />
+    retornar (
+        <ColorModeContext.Provider valor={{ colorMode }}>
+            <ThemeProvider tema={tema}>
+                <QueryClientProvider cliente={queryClient}>
+                  <SocketContext.Provider valor={SocketManager}>
+                      <Rotas />
                   </SocketContext.Provider>
                 </QueryClientProvider>
-            </ThemeProvider>
+            </Provedor de Tema>
         </ColorModeContext.Provider>
     );
 };
 
-export default App;
+exportar aplicativo padrão;
