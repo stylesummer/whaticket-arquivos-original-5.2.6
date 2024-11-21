@@ -5,7 +5,7 @@ import { logger } from "./utils/logger";
 import { StartAllWhatsAppsSessions } from "./services/WbotServices/StartAllWhatsAppsSessions";
 import Company from "./models/Company";
 import { startQueueProcess } from "./queues";
-import { TransferTicketQueue } from "./wbotTransferTicketQueue";
+// import { TransferTicketQueue } from "./wbotTransferTicketQueue";
 import cron from "node-cron";
 
 const server = app.listen(process.env.PORT, async () => {
@@ -37,14 +37,14 @@ process.on("unhandledRejection", (reason, p) => {
   // Remove process.exit(1); to avoid abrupt shutdowns
 });
 
-cron.schedule("* * * * *", async () => {
-  try {
-    logger.info(`Serviço de transferência de tickets iniciado`);
-    await TransferTicketQueue();
-  } catch (error) {
-    logger.error("Error in cron job:", error);
-  }
-});
+// cron.schedule("* * * * *", async () => {
+//  try {
+//    logger.info(`Serviço de transferência de tickets iniciado`);
+//    await TransferTicketQueue();
+//  } catch (error) {
+//    logger.error("Error in cron job:", error);
+//  }
+// });
 
 initIO(server);
 
